@@ -22,11 +22,12 @@
 #header,
 #footer {
     background-color: lightslategray;
-    height: 10vh;
-}
-
-#main {
-    height: 80vh;
+    min-height: 10vh;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .button {
@@ -37,6 +38,11 @@
     font-size: large;
 }
 
+#title {
+    font-size: 2rem;
+    padding: 0.25rem;
+}
+
 #calculator {
     display: flex;
     flex-direction: column;
@@ -45,7 +51,9 @@
     padding: 2rem;
 }
 
-
+#main {
+    height: 80vh;
+}
 
 #mid {
     display: flex;

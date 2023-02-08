@@ -1,6 +1,15 @@
-//Declaration of Test-Variables
-const a = 5;
-const b = 10;
+//Declare output-variable (initial)
+let outputInitial = 0;
+
+//Declare output-variable (result)
+let outputResult = 0;
+
+//Declare array-variable as operator help variable
+const helpVariable = ['0'];
+
+//Declare variables
+let a = 1;
+let b = 1;
 
 //add-function
 function sum(a,b){
@@ -19,8 +28,30 @@ function multi(a,b){
 
 //divide-function
 function div(a,b){
-    return a / b;
+    if(b != 0) {
+        return a / b;
+    } else {
+        return 'ERROR';
+    }
 }
+
+//clear-function
+function clear() {
+    outputInitial = 0;
+    outputResult = 0;
+    a = 0;
+    b = 0;
+    helpVariable.length = 0;
+    helpVariable.push(0);
+    outputField.textContent = helpVariable;
+}
+
+//back-function
+function back(a) {
+    return a.pop();
+}
+
+//result-function
 
 //Test
 console.log(sum(a,b));
@@ -28,7 +59,12 @@ console.log(sub(a,b));
 console.log(multi(a,b));
 console.log(div(a,b));
 
-//function operate -> 
+//function operate -> takes an operator and 2 numbers and then calls one of the above functions on the numbers.
+
+function operate(varOld) {
+    varOld = Number(helpVariable[0]);
+    console.log(varOld);
+};
 
 //declare numberButtons
 const button1 = document.getElementById('button1');
@@ -59,54 +95,123 @@ const outputField = document.getElementById('outputField');
 
 //testField
 button0.addEventListener('click', () => {
+    if(helpVariable[0] == 0) {
+        helpVariable[0] = '0';
+        outputField.textContent = helpVariable;
+    } else {
+        helpVariable.push(0);
+        outputField.textContent = helpVariable.join('');
+    }
     console.log(button0.textContent);
 });
 button1.addEventListener('click', () => {
+    if(helpVariable[0] == 0) {
+        helpVariable[0] = '1';
+        outputField.textContent = helpVariable;
+    } else {
+        helpVariable.push(1);
+        outputField.textContent = helpVariable.join('');
+    }
     console.log(button1.textContent);
 });
-button2.addEventListener('click', () => {
+button2.addEventListener('click', () => {if(helpVariable[0] == 0) {
+        helpVariable[0] = '2';
+        outputField.textContent = helpVariable;
+    } else {
+        helpVariable.push(2);
+        outputField.textContent = helpVariable.join('');
+    }
     console.log(button2.textContent);
 });
-button3.addEventListener('click', () => {
+button3.addEventListener('click', () => {if(helpVariable[0] == 0) {
+        helpVariable[0] = '3';
+        outputField.textContent = helpVariable;
+    } else {
+        helpVariable.push(3);
+        outputField.textContent = helpVariable.join('');
+    }
     console.log(button3.textContent);
 });
-button4.addEventListener('click', () => {
+button4.addEventListener('click', () => {if(helpVariable[0] == 0) {
+        helpVariable[0] = '4';
+        outputField.textContent = helpVariable;
+    } else {
+        helpVariable.push(4);
+        outputField.textContent = helpVariable.join('');
+    }
     console.log(button4.textContent);
 });
-button5.addEventListener('click', () => {
+button5.addEventListener('click', () => {if(helpVariable[0] == 0) {
+        helpVariable[0] = '5';
+        outputField.textContent = helpVariable;
+    } else {
+        helpVariable.push(5);
+        outputField.textContent = helpVariable.join('');
+    }
     console.log(button5.textContent);
 });
-button6.addEventListener('click', () => {
+button6.addEventListener('click', () => {if(helpVariable[0] == 0) {
+        helpVariable[0] = '6';
+        outputField.textContent = helpVariable;
+    } else {
+        helpVariable.push(6);
+        outputField.textContent = helpVariable.join('');
+    }
     console.log(button6.textContent);
 });
-button7.addEventListener('click', () => {
+button7.addEventListener('click', () => {if(helpVariable[0] == 0) {
+        helpVariable[0] = '7';
+        outputField.textContent = helpVariable;
+    } else {
+        helpVariable.push(7);
+        outputField.textContent = helpVariable.join('');
+    }
     console.log(button7.textContent);
 });
-button8.addEventListener('click', () => {
+button8.addEventListener('click', () => {if(helpVariable[0] == 0) {
+        helpVariable[0] = '8';
+        outputField.textContent = helpVariable;
+    } else {
+        helpVariable.push(8);
+        outputField.textContent = helpVariable.join('');
+    }
     console.log(button8.textContent);
 });
-button9.addEventListener('click', () => {
+button9.addEventListener('click', () => {if(helpVariable[0] == 0) {
+        helpVariable[0] = '9';
+        outputField.textContent = helpVariable;
+    } else {
+        helpVariable.push(9);
+        outputField.textContent = helpVariable.join('');
+    }
     console.log(button9.textContent);
 });
 buttonback.addEventListener('click', () => {
+    back(helpVariable);
+    outputField.textContent = helpVariable.join('');
     console.log(buttonback.textContent);
 });
 buttonclear.addEventListener('click', () => {
+    clear(a,b,outputInitial,outputResult,helpVariable);
     console.log(buttonclear.textContent);
 });
 buttonresult.addEventListener('click', () => {
     console.log(buttonresult.textContent);
 });
 buttonsum.addEventListener('click', () => {
+    outputField.textContent = sum(a,b);
     console.log(buttonsum.textContent);
 });
 buttonsub.addEventListener('click', () => {
+    outputField.textContent = sub(a,b);
     console.log(buttonsub.textContent);
 });
 buttonmulti.addEventListener('click', () => {
+    outputField.textContent = multi(a,b);
     console.log(buttonmulti.textContent);
 });
 buttondiv.addEventListener('click', () => {
+    outputField.textContent = div(a,b);
     console.log(buttondiv.textContent);
 });
 buttonComma.addEventListener('click', () => {

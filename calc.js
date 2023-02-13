@@ -1,8 +1,8 @@
 //Declare output-variable (initial)
-let outputInitial = 0;
+const outputInitial = 0;
 
 //Declare output-variable (result)
-let outputResult = 0;
+const outputResult = 0;
 
 //Declare array-variable as operator help variable
 const helpVariable = ['0'];
@@ -12,8 +12,20 @@ let a = 1;
 let b = 1;
 
 //add-function
-function sum(a,b){
-    return a + b;
+function sum(a,b,outputInitial){
+    if(outputInitial == '0') {
+        outputInitial = document.getElementById('outputField').textContent;
+        a = outputInitial;
+        outputInitial = 0;
+        return outputField.textContent = '0';
+    } else {
+        b = document.getElementById('outputField').textContent;
+        let addVar = a + b;
+        return console.log(addVar);
+    }
+    /*let text = document.getElementById('outputField').textContent;
+    return console.log(text);*/
+    //return a + b;
 }
 
 //subtract-function
@@ -199,7 +211,7 @@ buttonresult.addEventListener('click', () => {
     console.log(buttonresult.textContent);
 });
 buttonsum.addEventListener('click', () => {
-    outputField.textContent = sum(a,b);
+    outputField.textContent = sum(a,b,outputInitial);
     console.log(buttonsum.textContent);
 });
 buttonsub.addEventListener('click', () => {

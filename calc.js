@@ -1,58 +1,55 @@
-//Declare output-variable (initial)
-const outputInitial = 0;
-
-//Declare output-variable (result)
-const outputResult = 0;
-
 //Declare array-variable as operator help variable
 const helpVariable = ['0'];
+let argA = '5';
+let argB = '5';
+let operator = '*';
 
-//Declare variables
-let a = 1;
-let b = 1;
+//function operate -> takes an operator and 2 numbers and then calls one of the above functions on the numbers.
+function operate(argA, argB, operator) {
+    argA = Number(argA);
+    argB = Number(argB);
+    switch (operator) {
+        case '+':
+            return sum(argA,argB);
+        case '-':
+            return sub(argA,argB);
+        case '*':
+            return multi(argA,argB);
+        case '/':
+            if(argB === 0){
+                return null;
+            } else {
+                return div(argA,argB);
+            }
+        default:
+            return null;
+    }
+};
 
 //add-function
-function sum(a,b,outputInitial){
-    if(outputInitial == '0') {
-        outputInitial = document.getElementById('outputField').textContent;
-        a = outputInitial;
-        outputInitial = 0;
-        return outputField.textContent = '0';
-    } else {
-        b = document.getElementById('outputField').textContent;
-        let addVar = a + b;
-        return console.log(addVar);
-    }
-    /*let text = document.getElementById('outputField').textContent;
-    return console.log(text);*/
-    //return a + b;
+function sum(a,b){
+    return Number(a) + Number(b);
 }
 
 //subtract-function
 function sub(a,b){
-    return a - b;
+    return Number(a) - Number(b);
 }
 
 //multiply-function
 function multi(a,b){
-    return a * b;
+    return Number(a) * Number(b);
 }
 
 //divide-function
 function div(a,b){
-    if(b != 0) {
-        return a / b;
-    } else {
-        return 'ERROR';
-    }
+    return Number(a) / Number(b);
 }
 
 //clear-function
 function clear() {
-    outputInitial = 0;
-    outputResult = 0;
-    a = 0;
-    b = 0;
+    argA = '';
+    argB = '';
     helpVariable.length = 0;
     helpVariable.push(0);
     outputField.textContent = helpVariable;
@@ -63,20 +60,13 @@ function back(a) {
     return a.pop();
 }
 
-//result-function
+console.log(operate(argA,argB,operator))
 
 //Test
-console.log(sum(a,b));
-console.log(sub(a,b));
-console.log(multi(a,b));
-console.log(div(a,b));
-
-//function operate -> takes an operator and 2 numbers and then calls one of the above functions on the numbers.
-
-function operate(varOld) {
-    varOld = Number(helpVariable[0]);
-    console.log(varOld);
-};
+console.log(sum());
+console.log(sub());
+console.log(multi());
+console.log(div());
 
 //declare numberButtons
 const button1 = document.getElementById('button1');
@@ -198,34 +188,38 @@ button9.addEventListener('click', () => {if(helpVariable[0] == 0) {
     }
     console.log(button9.textContent);
 });
+
+//Back-Button
 buttonback.addEventListener('click', () => {
     back(helpVariable);
     outputField.textContent = helpVariable.join('');
     console.log(buttonback.textContent);
 });
+
+//Clear-Button
 buttonclear.addEventListener('click', () => {
-    clear(a,b,outputInitial,outputResult,helpVariable);
+    clear();
     console.log(buttonclear.textContent);
 });
+
+//Operator Buttons
 buttonresult.addEventListener('click', () => {
     console.log(buttonresult.textContent);
 });
 buttonsum.addEventListener('click', () => {
-    outputField.textContent = sum(a,b,outputInitial);
     console.log(buttonsum.textContent);
 });
 buttonsub.addEventListener('click', () => {
-    outputField.textContent = sub(a,b);
     console.log(buttonsub.textContent);
 });
 buttonmulti.addEventListener('click', () => {
-    outputField.textContent = multi(a,b);
     console.log(buttonmulti.textContent);
 });
 buttondiv.addEventListener('click', () => {
-    outputField.textContent = div(a,b);
     console.log(buttondiv.textContent);
 });
+
+//Comma Button
 buttonComma.addEventListener('click', () => {
     console.log(buttonComma.textContent);
 });

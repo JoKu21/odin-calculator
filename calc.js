@@ -1,74 +1,5 @@
-//Declare array-variable as operator help variable
-const helpVariable = ['0'];
-let argA = '5';
-let argB = '5';
-let operator = '*';
-
-//function operate -> takes an operator and 2 numbers and then calls one of the above functions on the numbers.
-function operate(argA, argB, operator) {
-    argA = Number(argA);
-    argB = Number(argB);
-    switch (operator) {
-        case '+':
-            return sum(argA,argB);
-        case '-':
-            return sub(argA,argB);
-        case '*':
-            return multi(argA,argB);
-        case '/':
-            if(argB === 0){
-                return null;
-            } else {
-                return div(argA,argB);
-            }
-        default:
-            return null;
-    }
-};
-
-//add-function
-function sum(a,b){
-    return Number(a) + Number(b);
-}
-
-//subtract-function
-function sub(a,b){
-    return Number(a) - Number(b);
-}
-
-//multiply-function
-function multi(a,b){
-    return Number(a) * Number(b);
-}
-
-//divide-function
-function div(a,b){
-    return Number(a) / Number(b);
-}
-
-//clear-function
-function clear() {
-    argA = '';
-    argB = '';
-    helpVariable.length = 0;
-    helpVariable.push(0);
-    outputField.textContent = helpVariable;
-}
-
-//back-function
-function back(a) {
-    return a.pop();
-}
-
-console.log(operate(argA,argB,operator))
-
-//Test
-console.log(sum());
-console.log(sub());
-console.log(multi());
-console.log(div());
-
-//declare numberButtons
+//button declaration
+const button0 = document.getElementById('button0');
 const button1 = document.getElementById('button1');
 const button2 = document.getElementById('button2');
 const button3 = document.getElementById('button3');
@@ -78,148 +9,82 @@ const button6 = document.getElementById('button6');
 const button7 = document.getElementById('button7');
 const button8 = document.getElementById('button8');
 const button9 = document.getElementById('button9');
-const button0 = document.getElementById('button0');
-const buttonComma = document.getElementById('button-comma');
+const buttonDot = document.getElementById('buttonDot');
 
-//declare operatorButtons
-const buttonsum = document.getElementById('sum');
-const buttonsub = document.getElementById('sub');
-const buttonmulti = document.getElementById('multi');
-const buttondiv = document.getElementById('div');
+const buttonSum = document.getElementById('sum');
+const buttonSub = document.getElementById('sub');
+const buttonMulti = document.getElementById('multi');
+const buttonDiv = document.getElementById('div');
 
-//declare correctButtons
-const buttonclear = document.getElementById('button-clear');
-const buttonback = document.getElementById('button-back');
-const buttonresult = document.getElementById('result');
+const buttonClear = document.getElementById('clear');
+const buttonBack = document.getElementById('back');
+const buttonResult = document.getElementById('result');
 
-//declare outputField
-const outputField = document.getElementById('outputField');
+const displayOutput = document.getElementById('outputField');
 
-//testField
-button0.addEventListener('click', () => {
-    if(helpVariable[0] == 0) {
-        helpVariable[0] = '0';
-        outputField.textContent = helpVariable;
-    } else {
-        helpVariable.push(0);
-        outputField.textContent = helpVariable.join('');
-    }
-    console.log(button0.textContent);
-});
-button1.addEventListener('click', () => {
-    if(helpVariable[0] == 0) {
-        helpVariable[0] = '1';
-        outputField.textContent = helpVariable;
-    } else {
-        helpVariable.push(1);
-        outputField.textContent = helpVariable.join('');
-    }
-    console.log(button1.textContent);
-});
-button2.addEventListener('click', () => {if(helpVariable[0] == 0) {
-        helpVariable[0] = '2';
-        outputField.textContent = helpVariable;
-    } else {
-        helpVariable.push(2);
-        outputField.textContent = helpVariable.join('');
-    }
-    console.log(button2.textContent);
-});
-button3.addEventListener('click', () => {if(helpVariable[0] == 0) {
-        helpVariable[0] = '3';
-        outputField.textContent = helpVariable;
-    } else {
-        helpVariable.push(3);
-        outputField.textContent = helpVariable.join('');
-    }
-    console.log(button3.textContent);
-});
-button4.addEventListener('click', () => {if(helpVariable[0] == 0) {
-        helpVariable[0] = '4';
-        outputField.textContent = helpVariable;
-    } else {
-        helpVariable.push(4);
-        outputField.textContent = helpVariable.join('');
-    }
-    console.log(button4.textContent);
-});
-button5.addEventListener('click', () => {if(helpVariable[0] == 0) {
-        helpVariable[0] = '5';
-        outputField.textContent = helpVariable;
-    } else {
-        helpVariable.push(5);
-        outputField.textContent = helpVariable.join('');
-    }
-    console.log(button5.textContent);
-});
-button6.addEventListener('click', () => {if(helpVariable[0] == 0) {
-        helpVariable[0] = '6';
-        outputField.textContent = helpVariable;
-    } else {
-        helpVariable.push(6);
-        outputField.textContent = helpVariable.join('');
-    }
-    console.log(button6.textContent);
-});
-button7.addEventListener('click', () => {if(helpVariable[0] == 0) {
-        helpVariable[0] = '7';
-        outputField.textContent = helpVariable;
-    } else {
-        helpVariable.push(7);
-        outputField.textContent = helpVariable.join('');
-    }
-    console.log(button7.textContent);
-});
-button8.addEventListener('click', () => {if(helpVariable[0] == 0) {
-        helpVariable[0] = '8';
-        outputField.textContent = helpVariable;
-    } else {
-        helpVariable.push(8);
-        outputField.textContent = helpVariable.join('');
-    }
-    console.log(button8.textContent);
-});
-button9.addEventListener('click', () => {if(helpVariable[0] == 0) {
-        helpVariable[0] = '9';
-        outputField.textContent = helpVariable;
-    } else {
-        helpVariable.push(9);
-        outputField.textContent = helpVariable.join('');
-    }
-    console.log(button9.textContent);
-});
+//additional declaration
+let helpVar = '';
+let a = 5;
+let b = 3
+let operator = '';
 
-//Back-Button
-buttonback.addEventListener('click', () => {
-    back(helpVariable);
-    outputField.textContent = helpVariable.join('');
-    console.log(buttonback.textContent);
-});
+//functions
 
-//Clear-Button
-buttonclear.addEventListener('click', () => {
-    clear();
-    console.log(buttonclear.textContent);
-});
+function sum(a,b) {
+    return a + b;
+}
 
-//Operator Buttons
-buttonresult.addEventListener('click', () => {
-    console.log(buttonresult.textContent);
-});
-buttonsum.addEventListener('click', () => {
-    console.log(buttonsum.textContent);
-});
-buttonsub.addEventListener('click', () => {
-    console.log(buttonsub.textContent);
-});
-buttonmulti.addEventListener('click', () => {
-    console.log(buttonmulti.textContent);
-});
-buttondiv.addEventListener('click', () => {
-    console.log(buttondiv.textContent);
-});
+function sub(a,b) {
+    return a - b;
+}
 
-//Comma Button
-buttonComma.addEventListener('click', () => {
-    console.log(buttonComma.textContent);
-});
+function multi(a,b) {
+    return a * b;
+}
+
+function div(a,b) {
+    return a / b;
+}
+
+function operate(a,b,operator) {
+    switch(operator) {
+        case '+':
+            sum(a,b)
+            break;
+
+        case '-':
+            sub(a,b)
+            break;
+
+        case '*':
+            multi(a,b)
+            break;
+
+        case'/':
+            div(a,b)
+            break;
+
+        default:
+            return 'no legal operation' 
+    }
+}
+
+function addSign(num) {
+    let x = displayOutput.textContent;
+    x += num;
+    return displayOutput.textContent = x;
+}
+
+//Add functions to buttons
+button0.addEventListener('click',() => {addSign('0');});
+button1.addEventListener('click',() => {addSign('1');});
+button2.addEventListener('click',() => {addSign('2');});
+button3.addEventListener('click',() => {addSign('3');});
+button4.addEventListener('click',() => {addSign('4');});
+button5.addEventListener('click',() => {addSign('5');});
+button6.addEventListener('click',() => {addSign('6');});
+button7.addEventListener('click',() => {addSign('7');});
+button8.addEventListener('click',() => {addSign('8');});
+button9.addEventListener('click',() => {addSign('9');});
+buttonDot.addEventListener('click',() => {addSign('.');});
+

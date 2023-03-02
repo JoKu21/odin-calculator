@@ -28,16 +28,33 @@ let a = 0;
 let b = 0;
 let operator = '';
 let operatorHelp = '';
-
-function roundResult(result) {
-    return Math.round(result * 1000) / 1000;
-}
+let dotEval = false;
 
 //functions
 function sum(a,b) {return a + b;}
 function sub(a,b) {return a - b;}
 function multi(a,b) {return a * b;}
 function div(a,b) {return a / b;}
+
+function roundResult(result) {
+    return Math.round(result * 1000) / 1000;
+}
+
+// Check if a "." was entered
+function checkDecimal() {
+    console.log(dotEval);
+    let x = displayOutput.textContent;
+    console.log(typeof(x));
+    console.log(x);
+    console.log(x.search('.'));
+    if(x.indexOf('.') >= 0) {
+        dotEval = true;
+    }
+    console.log(dotEval);
+    return dotEval;
+}
+
+//checkDecimal();
 
 function operate(sign) {
     if(a == 0){
@@ -96,6 +113,7 @@ function operate(sign) {
 }
 
 function addSign(num) {
+    checkDecimal();
     if(displayOutput.textContent != 'ERROR') {
         if(helpVar == '') {
         let x = displayOutput.textContent;
@@ -123,6 +141,7 @@ function clear() {
     b = 0;
     displayOutput.textContent = '';
     operator = '';
+    operatorHelp = '';
     helpVar = '';
 }
 
@@ -132,11 +151,20 @@ function keyInput(e) {
     if(e.key === '-') operate('-');
     if(e.key === '*') operate('*');
     if(e.key === '/') operate('/');
-    if(e.key === ',') addSign('.');
-    if(e.key === 'Enter' || e.key === '=') operate(operatorHelp);
+    if(e.key === ',') {
+        addSign('.');
+        
+    }
+    if(e.key === 'Enter' || e.key === '=' || e.keyCode === '13') {
+        operate(operatorHelp);
+        a = 0;
+    }
     if(e.key === 'Backspace') removeSign();
     if(e.key === 'Escape') clear();
 }
+
+
+
 
 //Add functions to buttons
 window.addEventListener('keydown', keyInput);
@@ -151,13 +179,19 @@ button6.addEventListener('click',() => {addSign('6');});
 button7.addEventListener('click',() => {addSign('7');});
 button8.addEventListener('click',() => {addSign('8');});
 button9.addEventListener('click',() => {addSign('9');});
-buttonDot.addEventListener('click',() => {addSign('.');});
+buttonDot.addEventListener('click',() => {
+   
+       addSign('.');  
+       
+    
+});
 
 buttonBack.addEventListener('click',() => {removeSign();});
 buttonClear.addEventListener('click',() => {clear();});
 
 buttonResult.addEventListener('click',() => {
     operate(operatorHelp);
+    a = 0;
 });
 
 buttonSum.addEventListener('click',() => {
@@ -196,3 +230,12 @@ buttonDiv.addEventListener('click',() => {
     }}
 );
 
+//Tests
+
+/*
+console.log(a);
+console.log(b);
+console.log(operator);
+console.log(operatorHelp);
+console.log(helpVar);
+*/

@@ -27,6 +27,7 @@ let helpVar = '';
 let a = 0;
 let b = 0;
 let operator = '';
+let operatorHelp = '';
 
 //functions
 
@@ -46,44 +47,77 @@ function div(a,b) {
     return a / b;
 }
 
-function operate(a,b,sign) {
+function result(){
+    console.log(a);
+    console.log(b);
+    console.log(helpVar);
+    console.log(operator);
+}
 
-    if(a === 0){
+function operate(sign) {
+    if(a == 0){
        a = Number(displayOutput.textContent);
-       
-       console.log(`var a = ${a}`);
+       operator = sign;
+       operatorHelp = operator;
        displayOutput.textContent = '';
-        //Mach das nächste Mal hier weiter. Die globalen Variablen müssen fest geändert und immer wieder abgerufen werden. Damit kann dann darauf zugegriffen werden und sie können mit dem Operator verknüpft werden
+       //return a;
     } else {
+        operator = operatorHelp;
         b = Number(displayOutput.textContent);
-        console.log(`b = ${b}, operator = ${sign}`);
-        switch(sign) {
+        switch(operator) {
             case '+':
-                helpVar = sum(a,b)
+                helpVar = sum(a,b);
+                displayOutput.textContent = '';
+                displayOutput.textContent = helpVar;
+                a = helpVar;
+                b = 0;
+                operatorHelp = sign;
                 break;
 
             case '-':
                 helpVar = sub(a,b)
+                displayOutput.textContent = '';
+                displayOutput.textContent = helpVar;
+                a = helpVar;
+                b = 0;
+                operatorHelp = sign;
                 break;
 
             case '*':
                 helpVar = multi(a,b)
+                displayOutput.textContent = '';
+                displayOutput.textContent = helpVar;
+                a = helpVar;
+                b = 0;
+                operatorHelp = sign;
                 break;
 
             case'/':
                 helpVar = div(a,b)
+                displayOutput.textContent = '';
+                displayOutput.textContent = helpVar;
+                a = helpVar;
+                b = 0;
+                operatorHelp = sign;
                 break;
 
             default:
-                return helpVar 
+                displayOutput.textContent = ''; 
         }
+        
     }
 }
 
 function addSign(num) {
-    let x = displayOutput.textContent;
-    x += num;
-    return displayOutput.textContent = x;
+    if(helpVar == '') {
+        let x = displayOutput.textContent;
+        x += num;
+        return displayOutput.textContent = x;
+    } else {
+        displayOutput.textContent = '';
+        helpVar = '';
+        addSign(num);
+    }
 }
 
 function removeSign() {
@@ -117,8 +151,39 @@ buttonBack.addEventListener('click',() => {removeSign();});
 buttonClear.addEventListener('click',() => {clear();});
 buttonResult.addEventListener('click',() => {result();});
 
-buttonSum.addEventListener('click',() => {operate(a,b,'+');});
-buttonSub.addEventListener('click',() => {operate(a,b,'-');});
-buttonMulti.addEventListener('click',() => {operate(a,b,'*');});
-buttonDiv.addEventListener('click',() => {operate(a,b,'/');});
+buttonSum.addEventListener('click',() => {
+    if(operator == ''){
+        operate('+');
+    } else {
+        operator = '+';
+        operate(operator);
+    }}
+);
+
+buttonSub.addEventListener('click',() => {
+    if(operator == ''){
+        operate('-');
+    } else {
+        operator = '-';
+        operate(operator);
+    }}
+);
+
+buttonMulti.addEventListener('click',() => {
+    if(operator == ''){
+        operate('*');
+    } else {
+        operator = '*';
+        operate(operator);
+    }}
+);
+
+buttonDiv.addEventListener('click',() => {
+    if(operator == ''){
+        operate('/');
+    } else {
+        operator = '/';
+        operate(operator);
+    }}
+);
 

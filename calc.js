@@ -29,30 +29,15 @@ let b = 0;
 let operator = '';
 let operatorHelp = '';
 
+function roundResult(result) {
+    return Math.round(result * 1000) / 1000;
+}
+
 //functions
-
-function sum(a,b) {
-    return a + b;
-}
-
-function sub(a,b) {
-    return a - b;
-}
-
-function multi(a,b) {
-    return a * b;
-}
-
-function div(a,b) {
-    return a / b;
-}
-
-function result(){
-    console.log(a);
-    console.log(b);
-    console.log(helpVar);
-    console.log(operator);
-}
+function sum(a,b) {return a + b;}
+function sub(a,b) {return a - b;}
+function multi(a,b) {return a * b;}
+function div(a,b) {return a / b;}
 
 function operate(sign) {
     if(a == 0){
@@ -60,62 +45,69 @@ function operate(sign) {
        operator = sign;
        operatorHelp = operator;
        displayOutput.textContent = '';
-       //return a;
     } else {
         operator = operatorHelp;
         b = Number(displayOutput.textContent);
-        switch(operator) {
-            case '+':
-                helpVar = sum(a,b);
-                displayOutput.textContent = '';
-                displayOutput.textContent = helpVar;
-                a = helpVar;
-                b = 0;
-                operatorHelp = sign;
-                break;
+        if(b != 0) {
+            switch(operator) {
+                case '+':
+                    helpVar = sum(a,b);
+                    displayOutput.textContent = '';
+                    displayOutput.textContent = helpVar;
+                    a = helpVar;
+                    b = 0;
+                    operatorHelp = sign;
+                    break;
 
-            case '-':
-                helpVar = sub(a,b)
-                displayOutput.textContent = '';
-                displayOutput.textContent = helpVar;
-                a = helpVar;
-                b = 0;
-                operatorHelp = sign;
-                break;
+                case '-':
+                    helpVar = sub(a,b);
+                    displayOutput.textContent = '';
+                    displayOutput.textContent = helpVar;
+                    a = helpVar;
+                    b = 0;
+                    operatorHelp = sign;
+                    break;
 
-            case '*':
-                helpVar = multi(a,b)
-                displayOutput.textContent = '';
-                displayOutput.textContent = helpVar;
-                a = helpVar;
-                b = 0;
-                operatorHelp = sign;
-                break;
+                case '*':
+                    helpVar = multi(a,b);
+                    displayOutput.textContent = '';
+                    displayOutput.textContent = helpVar;
+                    a = helpVar;
+                    b = 0;
+                    operatorHelp = sign;
+                    break;
 
-            case'/':
-                helpVar = div(a,b)
-                displayOutput.textContent = '';
-                displayOutput.textContent = helpVar;
-                a = helpVar;
-                b = 0;
-                operatorHelp = sign;
-                break;
+                case'/':
+                    helpVar = roundResult(div(a,b));
+                    displayOutput.textContent = '';
+                    displayOutput.textContent = helpVar;
+                    a = helpVar;
+                    b = 0;
+                    operatorHelp = sign;
+                    break;
 
-            default:
-                displayOutput.textContent = ''; 
+                default:
+                    displayOutput.textContent = helpVar; 
+            }
+        } else {
+            displayOutput.textContent = 'ERROR';
         }
-        
     }
 }
 
 function addSign(num) {
-    if(helpVar == '') {
+    if(displayOutput.textContent != 'ERROR') {
+        if(helpVar == '') {
         let x = displayOutput.textContent;
         x += num;
         return displayOutput.textContent = x;
+        } else {
+            displayOutput.textContent = '';
+            helpVar = '';
+            addSign(num);
+        }
     } else {
-        displayOutput.textContent = '';
-        helpVar = '';
+        clear();
         addSign(num);
     }
 }
@@ -134,7 +126,21 @@ function clear() {
     helpVar = '';
 }
 
+function keyInput(e) {
+    if(e.key >= 0 && e.key <= 9) addSign(e.key);
+    if(e.key === '+') operate('+');
+    if(e.key === '-') operate('-');
+    if(e.key === '*') operate('*');
+    if(e.key === '/') operate('/');
+    if(e.key === ',') addSign('.');
+    if(e.key === 'Enter' || e.key === '=') operate(operatorHelp);
+    if(e.key === 'Backspace') removeSign();
+    if(e.key === 'Escape') clear();
+}
+
 //Add functions to buttons
+window.addEventListener('keydown', keyInput);
+
 button0.addEventListener('click',() => {addSign('0');});
 button1.addEventListener('click',() => {addSign('1');});
 button2.addEventListener('click',() => {addSign('2');});
@@ -149,7 +155,10 @@ buttonDot.addEventListener('click',() => {addSign('.');});
 
 buttonBack.addEventListener('click',() => {removeSign();});
 buttonClear.addEventListener('click',() => {clear();});
-buttonResult.addEventListener('click',() => {result();});
+
+buttonResult.addEventListener('click',() => {
+    operate(operatorHelp);
+});
 
 buttonSum.addEventListener('click',() => {
     if(operator == ''){

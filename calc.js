@@ -30,6 +30,7 @@ let operator = '';
 let operatorHelp = '';
 let dotEval = false;
 
+
 //functions
 function sum(a,b) {return a + b;}
 function sub(a,b) {return a - b;}
@@ -40,21 +41,19 @@ function roundResult(result) {
     return Math.round(result * 1000) / 1000;
 }
 
-// Check if a "." was entered
 function checkDecimal() {
-    console.log(dotEval);
     let x = displayOutput.textContent;
-    console.log(typeof(x));
-    console.log(x);
-    console.log(x.search('.'));
     if(x.indexOf('.') >= 0) {
         dotEval = true;
+        document.getElementById('buttonDot').disabled = true;
+        document.onkeydown = function (event) {
+            if(event.key == '.') event.preventDefault();
+        };
+    } else {
+        dotEval = false;
+        document.getElementById('buttonDot').disabled = false;
     }
-    console.log(dotEval);
-    return dotEval;
 }
-
-//checkDecimal();
 
 function operate(sign) {
     if(a == 0){
@@ -118,7 +117,8 @@ function addSign(num) {
         if(helpVar == '') {
         let x = displayOutput.textContent;
         x += num;
-        return displayOutput.textContent = x;
+        displayOutput.textContent = x;
+        checkDecimal();
         } else {
             displayOutput.textContent = '';
             helpVar = '';
@@ -133,7 +133,8 @@ function addSign(num) {
 function removeSign() {
     let y = displayOutput.textContent.toString();
     let help = y.slice(0,y.length-1);
-    return displayOutput.textContent = Number(help);
+    displayOutput.textContent = Number(help);
+    checkDecimal();
 }
 
 function clear() {
@@ -151,9 +152,10 @@ function keyInput(e) {
     if(e.key === '-') operate('-');
     if(e.key === '*') operate('*');
     if(e.key === '/') operate('/');
-    if(e.key === ',') {
-        addSign('.');
-        
+    if(e.key === ',' || e.key === '.') {
+        if(dotEval != true) {
+            addSign('.');
+        } else false;
     }
     if(e.key === 'Enter' || e.key === '=' || e.keyCode === '13') {
         operate(operatorHelp);
@@ -162,9 +164,6 @@ function keyInput(e) {
     if(e.key === 'Backspace') removeSign();
     if(e.key === 'Escape') clear();
 }
-
-
-
 
 //Add functions to buttons
 window.addEventListener('keydown', keyInput);
@@ -179,12 +178,7 @@ button6.addEventListener('click',() => {addSign('6');});
 button7.addEventListener('click',() => {addSign('7');});
 button8.addEventListener('click',() => {addSign('8');});
 button9.addEventListener('click',() => {addSign('9');});
-buttonDot.addEventListener('click',() => {
-   
-       addSign('.');  
-       
-    
-});
+buttonDot.addEventListener('click',() => {addSign('.');});
 
 buttonBack.addEventListener('click',() => {removeSign();});
 buttonClear.addEventListener('click',() => {clear();});
@@ -229,13 +223,3 @@ buttonDiv.addEventListener('click',() => {
         operate(operator);
     }}
 );
-
-//Tests
-
-/*
-console.log(a);
-console.log(b);
-console.log(operator);
-console.log(operatorHelp);
-console.log(helpVar);
-*/
